@@ -1,0 +1,31 @@
+# Snowball Fight Module Settings
+
+file_version: 1
+# Visual representation in menus
+menus:
+  vote:
+    item: SNOWBALL
+
+respawn:
+  # Delay (in ticks) before a player respawns in most_kills mode after being eliminated
+  most_kills_delay_ticks: 60
+
+# Game items (optional)
+items:
+  # Items to give players on game start
+  # Format: MATERIAL:AMOUNT:SLOT
+  starting_items: []
+
+  # Snowballs given periodically during the match
+  snowballs_per_interval: 1
+  snowball_interval_ticks: 20
+
+# Potion effects (optional)
+effects:
+  # Effects to give players during the game
+  # Format: EFFECT_TYPE:DURATION_TICKS:AMPLIFIER
+  starting_effects: []
+
+  # Effects when player respawns
+  # Format: EFFECT_TYPE:DURATION_TICKS:AMPLIFIER
+  respawn_effects: []

@@ -1,0 +1,12 @@
+name: Snowball Fight
+id: snowball_fight
+version: 1.0.0
+type: MICROGAME
+api-version: 1.0
+main: net.blueva.arcade.modules.snowballfight.SnowballFightModule
+
+authors:
+  - Blueva
+  - Whiron
+
+description: "Snowball Fight minigame - throw snowballs and outlast your opponents!"
