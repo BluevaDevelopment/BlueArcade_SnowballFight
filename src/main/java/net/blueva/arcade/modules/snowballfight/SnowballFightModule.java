@@ -58,7 +58,7 @@ public class SnowballFightModule implements GameModule<Player, Location, World, 
         moduleConfig.register("settings.yml", 1);
         moduleConfig.register("achievements.yml", 1);
 
-        SnowballFightStatsService statsService = new SnowballFightStatsService(statsAPI, moduleInfo);
+        SnowballFightStatsService statsService = new SnowballFightStatsService(statsAPI, moduleInfo, moduleConfig);
         statsService.registerStats();
 
         SnowballFightLoadoutService loadoutService = new SnowballFightLoadoutService(moduleConfig);

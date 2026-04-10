@@ -31,7 +31,7 @@ public class SnowballFightSetup implements GameSetupHandler {
 
     private boolean handleInternal(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
-            context.getMessagesAPI().send(context.getPlayer(),
+            context.getMessagesAPI().sendRaw(context.getPlayer(),
                     moduleConfig.getStringFrom("language.yml", "setup_messages.usage_setmode"));
             return true;
         }
@@ -42,7 +42,7 @@ public class SnowballFightSetup implements GameSetupHandler {
             return handleSetMode(context);
         }
 
-        context.getMessagesAPI().send(context.getPlayer(),
+        context.getMessagesAPI().sendRaw(context.getPlayer(),
                 coreConfig.getLanguage("admin_commands.errors.unknown_subcommand"));
         return true;
     }
@@ -84,14 +84,14 @@ public class SnowballFightSetup implements GameSetupHandler {
 
     private boolean handleSetMode(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
-            context.getMessagesAPI().send(context.getPlayer(),
+            context.getMessagesAPI().sendRaw(context.getPlayer(),
                     moduleConfig.getStringFrom("language.yml", "setup_messages.usage_setmode"));
             return true;
         }
 
         String mode = context.getHandlerArg(0).toLowerCase();
         if (!mode.equals("last_standing") && !mode.equals("most_kills")) {
-            context.getMessagesAPI().send(context.getPlayer(),
+            context.getMessagesAPI().sendRaw(context.getPlayer(),
                     moduleConfig.getStringFrom("language.yml", "setup_messages.usage_setmode"));
             return true;
         }
@@ -99,7 +99,7 @@ public class SnowballFightSetup implements GameSetupHandler {
         context.getData().setString("basic.win_mode", mode);
         context.getData().save();
 
-        context.getMessagesAPI().send(context.getPlayer(),
+        context.getMessagesAPI().sendRaw(context.getPlayer(),
                 moduleConfig.getStringFrom("language.yml", "setup_messages.mode_set")
                         .replace("{mode}", mode));
         return true;

@@ -82,6 +82,11 @@ public class SnowballFightMessagingService {
     public void broadcastDeathMessage(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                                       Player victim,
                                       Player killer) {
+        // Don't broadcast death messages for spectators
+        if (context.getSpectators().contains(victim)) {
+            return;
+        }
+
         String path = killer != null ? "messages.deaths.killed_by_player" : "messages.deaths.generic";
         String message = getRandomMessage(path);
 

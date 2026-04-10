@@ -5,9 +5,14 @@ import net.blueva.arcade.api.game.GamePhase;
 import net.blueva.arcade.api.ModuleAPI;
 import net.blueva.arcade.api.visuals.VisualEffectsAPI;
 import net.blueva.arcade.modules.snowballfight.game.SnowballFightGameManager;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
@@ -30,7 +35,7 @@ public class SnowballFightListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        GameContext context = gameManager.getGameContext(player);
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = gameManager.getGameContext(player);
 
         if (context == null || !context.isPlayerPlaying(player)) {
             return;
@@ -62,7 +67,7 @@ public class SnowballFightListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        GameContext context = gameManager.getGameContext(player);
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = gameManager.getGameContext(player);
 
         if (context == null || !context.isPlayerPlaying(player)) {
             return;
@@ -82,7 +87,7 @@ public class SnowballFightListener implements Listener {
             return;
         }
 
-        GameContext context = gameManager.getGameContext(shooter);
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = gameManager.getGameContext(shooter);
         if (context == null || context.getPhase() != GamePhase.PLAYING || !context.isPlayerPlaying(shooter)) {
             return;
         }
@@ -102,7 +107,7 @@ public class SnowballFightListener implements Listener {
             return;
         }
 
-        GameContext context = gameManager.getGameContext(shooter);
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = gameManager.getGameContext(shooter);
         if (context == null || context.getPhase() != GamePhase.PLAYING || !context.isPlayerPlaying(shooter)) {
             return;
         }
@@ -127,7 +132,7 @@ public class SnowballFightListener implements Listener {
 
         Entity damager = event.getDamager();
         if (damager instanceof Player) {
-            GameContext context = gameManager.getGameContext(target);
+            GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = gameManager.getGameContext(target);
             if (context != null && context.isPlayerPlaying(target)) {
                 event.setCancelled(true);
             }
@@ -142,7 +147,7 @@ public class SnowballFightListener implements Listener {
             return;
         }
 
-        GameContext context = gameManager.getGameContext(target);
+        GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context = gameManager.getGameContext(target);
         if (context == null || context.getPhase() != GamePhase.PLAYING) {
             return;
         }
@@ -159,7 +164,7 @@ public class SnowballFightListener implements Listener {
         gameManager.handlePlayerElimination(target, shooter, true);
     }
 
-    private void respawnPlayer(GameContext context, Player player) {
+    private void respawnPlayer(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context, Player player) {
         if (context.getPhase() == GamePhase.PLAYING) {
             VisualEffectsAPI visualEffectsAPI = ModuleAPI.getVisualEffectsAPI();
             if (visualEffectsAPI != null) {

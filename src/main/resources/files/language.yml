@@ -34,6 +34,13 @@ vote_menu:
     - "<white>{votes}</white> <gray>votes.</gray>"
 
 stats:
+
+  descriptions:
+    wins: "Snowball Fight wins"
+    games_played: "Snowball Fight games played"
+    snowballs_thrown: "Snowballs thrown in Snowball Fight"
+    snowball_kills: "Players eliminated with snowballs"
+    snowball_hits: "Snowball hits landed"
   labels:
     snowballs_thrown: "Snowballs thrown"
     snowball_hits: "Snowball hits"

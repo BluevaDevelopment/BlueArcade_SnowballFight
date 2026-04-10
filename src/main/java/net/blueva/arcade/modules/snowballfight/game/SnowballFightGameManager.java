@@ -258,6 +258,11 @@ public class SnowballFightGameManager {
             return;
         }
 
+        // Don't eliminate spectators
+        if (context.getSpectators().contains(player)) {
+            return;
+        }
+
         Location deathLocation = player.getLocation();
         playVisualEffects(player, killer, deathLocation);
 
