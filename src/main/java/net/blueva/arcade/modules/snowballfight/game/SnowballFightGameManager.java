@@ -160,8 +160,8 @@ public class SnowballFightGameManager {
         List<Player> alivePlayers = new ArrayList<>(context.getAlivePlayers());
         String winMode = getWinMode(context);
         if (alivePlayers.size() == 1 && "last_standing".equals(winMode)) {
-            context.setWinner(alivePlayers.getFirst());
-            handleWin(alivePlayers.getFirst());
+            context.setWinner(alivePlayers.get(0));
+            handleWin(alivePlayers.get(0));
         }
 
         if ("most_kills".equals(winMode)) {
@@ -365,7 +365,7 @@ public class SnowballFightGameManager {
             return null;
         }
 
-        return topPlayers.getFirst();
+        return topPlayers.get(0);
     }
 
     private void handleMostKillsOutcome(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context) {
@@ -374,7 +374,7 @@ public class SnowballFightGameManager {
             return;
         }
 
-        Player winner = topPlayers.getFirst();
+        Player winner = topPlayers.get(0);
         context.setWinner(winner);
         handleWin(winner);
 
