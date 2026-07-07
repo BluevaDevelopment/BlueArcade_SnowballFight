@@ -32,7 +32,7 @@ public class SnowballFightSetup implements GameSetupHandler {
     private boolean handleInternal(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    moduleConfig.getStringFrom("language.yml", "setup_messages.usage_setmode"));
+                    moduleConfig.getTranslation(context.getPlayer(), "setup_messages.usage_setmode"));
             return true;
         }
 
@@ -43,7 +43,7 @@ public class SnowballFightSetup implements GameSetupHandler {
         }
 
         context.getMessagesAPI().sendRaw(context.getPlayer(),
-                coreConfig.getLanguage("admin_commands.errors.unknown_subcommand"));
+                coreConfig.getLanguage(context.getPlayer(), "admin_commands.errors.unknown_subcommand"));
         return true;
     }
 
@@ -85,14 +85,14 @@ public class SnowballFightSetup implements GameSetupHandler {
     private boolean handleSetMode(SetupContext<Player, CommandSender, Location> context) {
         if (!context.hasHandlerArgs(1)) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    moduleConfig.getStringFrom("language.yml", "setup_messages.usage_setmode"));
+                    moduleConfig.getTranslation(context.getPlayer(), "setup_messages.usage_setmode"));
             return true;
         }
 
         String mode = context.getHandlerArg(0).toLowerCase();
         if (!mode.equals("last_standing") && !mode.equals("most_kills")) {
             context.getMessagesAPI().sendRaw(context.getPlayer(),
-                    moduleConfig.getStringFrom("language.yml", "setup_messages.usage_setmode"));
+                    moduleConfig.getTranslation(context.getPlayer(), "setup_messages.usage_setmode"));
             return true;
         }
 
@@ -100,7 +100,7 @@ public class SnowballFightSetup implements GameSetupHandler {
         context.getData().save();
 
         context.getMessagesAPI().sendRaw(context.getPlayer(),
-                moduleConfig.getStringFrom("language.yml", "setup_messages.mode_set")
+                moduleConfig.getTranslation(context.getPlayer(), "setup_messages.mode_set")
                         .replace("{mode}", mode));
         return true;
     }

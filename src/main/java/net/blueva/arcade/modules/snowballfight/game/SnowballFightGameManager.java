@@ -124,19 +124,18 @@ public class SnowballFightGameManager {
             }
 
             giveTimedItems(context);
-
-            String actionBarTemplate = coreConfig.getLanguage("action_bar.in_game.global");
             for (Player player : allPlayers) {
+                String actionBarTemplate = coreConfig.getLanguage(player, "action_bar.in_game.global");
                 if (!player.isOnline()) continue;
 
                 Map<String, String> customPlaceholders = getCustomPlaceholders(player);
-                customPlaceholders.put("time", String.valueOf(timeLeft[0]));
+                customPlaceholders.put("time", formatCountdownTime(timeLeft[0]));
                 customPlaceholders.put("alive", String.valueOf(alivePlayers.size()));
                 customPlaceholders.put("spectators", String.valueOf(context.getSpectators().size()));
 
                 if (actionBarTemplate != null) {
                     String actionBarMessage = actionBarTemplate
-                            .replace("{time}", String.valueOf(timeLeft[0]))
+                            .replace("{time}", formatCountdownTime(timeLeft[0]))
                             .replace("{round}", String.valueOf(context.getCurrentRound()))
                             .replace("{round_max}", String.valueOf(context.getMaxRounds()));
                     context.getMessagesAPI().sendActionBar(player, actionBarMessage);
@@ -231,7 +230,7 @@ public class SnowballFightGameManager {
             placeholders.put("alive", String.valueOf(context.getAlivePlayers().size()));
             placeholders.put("spectators", String.valueOf(context.getSpectators().size()));
             placeholders.put("kills", String.valueOf(getPlayerKills(context, player)));
-            placeholders.put("mode", getModeLabel(getWinMode(context)));
+            placeholders.put("mode", getModeLabel(player, getWinMode(context)));
             if ("most_kills".equals(getWinMode(context))) {
                 List<Player> topPlayers = getTopPlayersByKills(context);
                 for (int i = 0; i < 5; i++) {
@@ -268,7 +267,7 @@ public class SnowballFightGameManager {
 
         String winMode = getWinMode(context);
         if ("most_kills".equals(winMode)) {
-            player.setGameMode(GameMode.SPECTATOR);
+            context.setPlayerSpectating(player, true);
             player.getInventory().clear();
             if (killedBySnowball) {
                 messagingService.sendDeathTitle(context, player);
@@ -296,9 +295,9 @@ public class SnowballFightGameManager {
         }
 
         messagingService.broadcastDeathMessage(context, player, killer);
-        context.eliminatePlayer(player, moduleConfig.getStringFrom("language.yml", "messages.eliminated"));
+        context.eliminatePlayer(player, moduleConfig.getTranslation(player, "messages.eliminated"));
         player.getInventory().clear();
-        player.setGameMode(GameMode.SPECTATOR);
+        context.setPlayerSpectating(player, true);
         if (killedBySnowball) {
             messagingService.playDeathSound(context, player, coreConfig);
             messagingService.sendDeathTitle(context, player);
@@ -352,11 +351,11 @@ public class SnowballFightGameManager {
         return mode;
     }
 
-    public String getModeLabel(String mode) {
+    public String getModeLabel(Player player, String mode) {
         if ("most_kills".equals(mode)) {
-            return moduleConfig.getStringFrom("language.yml", "scoreboard.mode_labels.most_kills");
+            return moduleConfig.getTranslation(player, "scoreboard.mode_labels.most_kills");
         }
-        return moduleConfig.getStringFrom("language.yml", "scoreboard.mode_labels.last_standing");
+        return moduleConfig.getTranslation(player, "scoreboard.mode_labels.last_standing");
     }
 
     public Player getTopKiller(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context) {
@@ -477,4 +476,10 @@ public class SnowballFightGameManager {
     public CoreConfigAPI getCoreConfig() {
         return coreConfig;
     }
+
+    private static String formatCountdownTime(int seconds) {
+        int safeSeconds = Math.max(0, seconds);
+        return String.format("%02d:%02d", safeSeconds / 60, safeSeconds % 60);
+    }
+
 }

@@ -1,10 +1,17 @@
-file_version: 1
+#  ____  _               _                      _
+# | __ )| |_   _  ___   / \   _ __ ___ __ _  __| | ___
+# |  _ \| | | | |/ _ \ / _ \ | '__/ __/ _` |/ _` |/ _ \
+# | |_) | | |_| |  __// ___ \| | | (_| (_| | (_| |  __/
+# |____/|_|\__,_|\___/_/   \_|_|  \___\__,_|\__,_|\___|
+#
+# [!] Arcade by Blueva | https://blueva.net/store/blue-arcade [!]
+
 category:
-  id: snowball_fight
+  id: "snowball_fight"
   name: "Snowball Fight"
   description:
     - "Achievements tied to Snowball Fight."
-  icon: SNOWBALL
+  icon: "SNOWBALL"
   sort_order: 21
 
 achievements:
@@ -12,7 +19,7 @@ achievements:
     name: "Snowball Rookie"
     description:
       - "Play Snowball Fight matches."
-    icon: SNOWBALL
+    icon: "SNOWBALL"
     phases:
       1:
         name: "First skirmish"
@@ -84,7 +91,7 @@ achievements:
     name: "Snowball Marksman"
     description:
       - "Land snowball hits."
-    icon: SNOWBALL
+    icon: "SNOWBALL"
     phases:
       1:
         name: "First hit"
@@ -156,7 +163,7 @@ achievements:
     name: "Snowball Eliminator"
     description:
       - "Eliminate opponents with snowballs."
-    icon: DIAMOND
+    icon: "DIAMOND"
     phases:
       1:
         name: "First elimination"

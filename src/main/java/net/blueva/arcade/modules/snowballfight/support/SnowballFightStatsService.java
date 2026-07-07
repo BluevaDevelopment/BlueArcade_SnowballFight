@@ -25,15 +25,15 @@ public class SnowballFightStatsService {
         }
 
         statsAPI.registerModuleStat(moduleInfo.getId(),
-                new StatDefinition("wins", moduleConfig.getStringFrom("language.yml", "stats.labels.wins", "Wins"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.wins", "Snowball Fight wins"), StatScope.MODULE));
+                new StatDefinition("wins", moduleConfig.getTranslation(null, "stats.labels.wins"), moduleConfig.getTranslation(null, "stats.descriptions.wins"), StatScope.MODULE));
         statsAPI.registerModuleStat(moduleInfo.getId(),
-                new StatDefinition("games_played", moduleConfig.getStringFrom("language.yml", "stats.labels.games_played", "Games Played"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.games_played", "Snowball Fight games played"), StatScope.MODULE));
+                new StatDefinition("games_played", moduleConfig.getTranslation(null, "stats.labels.games_played"), moduleConfig.getTranslation(null, "stats.descriptions.games_played"), StatScope.MODULE));
         statsAPI.registerModuleStat(moduleInfo.getId(),
-                new StatDefinition("snowballs_thrown", moduleConfig.getStringFrom("language.yml", "stats.labels.snowballs_thrown", "Snowballs thrown"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.snowballs_thrown", "Snowballs thrown in Snowball Fight"), StatScope.MODULE));
+                new StatDefinition("snowballs_thrown", moduleConfig.getTranslation(null, "stats.labels.snowballs_thrown"), moduleConfig.getTranslation(null, "stats.descriptions.snowballs_thrown"), StatScope.MODULE));
         statsAPI.registerModuleStat(moduleInfo.getId(),
-                new StatDefinition("snowball_kills", moduleConfig.getStringFrom("language.yml", "stats.labels.snowball_kills", "Snowball kills"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.snowball_kills", "Players eliminated with snowballs"), StatScope.MODULE));
+                new StatDefinition("snowball_kills", moduleConfig.getTranslation(null, "stats.labels.snowball_kills"), moduleConfig.getTranslation(null, "stats.descriptions.snowball_kills"), StatScope.MODULE));
         statsAPI.registerModuleStat(moduleInfo.getId(),
-                new StatDefinition("snowball_hits", moduleConfig.getStringFrom("language.yml", "stats.labels.snowball_hits", "Snowball hits"), moduleConfig.getStringFrom("language.yml", "stats.descriptions.snowball_hits", "Snowball hits landed"), StatScope.MODULE));
+                new StatDefinition("snowball_hits", moduleConfig.getTranslation(null, "stats.labels.snowball_hits"), moduleConfig.getTranslation(null, "stats.descriptions.snowball_hits"), StatScope.MODULE));
     }
 
     public boolean hasStatsApi() {

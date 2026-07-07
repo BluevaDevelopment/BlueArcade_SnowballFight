@@ -29,12 +29,11 @@ public class SnowballFightMessagingService {
     public void sendDescription(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                                 String winMode) {
         String descriptionKey = "description." + winMode;
-        List<String> description = moduleConfig.getStringListFrom("language.yml", descriptionKey);
-        if (description == null || description.isEmpty()) {
-            description = moduleConfig.getStringListFrom("language.yml", "description");
-        }
-
         for (Player player : context.getPlayers()) {
+            List<String> description = moduleConfig.getTranslationList(player, descriptionKey);
+            if (description == null || description.isEmpty()) {
+                description = moduleConfig.getTranslationList(player, "description");
+            }
             for (String line : description) {
                 context.getMessagesAPI().sendRaw(player, line);
             }
@@ -50,11 +49,11 @@ public class SnowballFightMessagingService {
 
             context.getSoundsAPI().play(player, coreConfig.getSound("sounds.starting_game.countdown"));
 
-            String title = coreConfig.getLanguage("titles.starting_game.title")
+            String title = coreConfig.getLanguage(player, "titles.starting_game.title")
                     .replace("{game_display_name}", moduleInfo.getName())
                     .replace("{time}", String.valueOf(secondsLeft));
 
-            String subtitle = coreConfig.getLanguage("titles.starting_game.subtitle")
+            String subtitle = coreConfig.getLanguage(player, "titles.starting_game.subtitle")
                     .replace("{game_display_name}", moduleInfo.getName())
                     .replace("{time}", String.valueOf(secondsLeft));
 
@@ -68,10 +67,10 @@ public class SnowballFightMessagingService {
         for (Player player : context.getPlayers()) {
             if (!player.isOnline()) continue;
 
-            String title = coreConfig.getLanguage("titles.game_started.title")
+            String title = coreConfig.getLanguage(player, "titles.game_started.title")
                     .replace("{game_display_name}", moduleInfo.getName());
 
-            String subtitle = coreConfig.getLanguage("titles.game_started.subtitle")
+            String subtitle = coreConfig.getLanguage(player, "titles.game_started.subtitle")
                     .replace("{game_display_name}", moduleInfo.getName());
 
             context.getTitlesAPI().sendRaw(player, title, subtitle, 0, 20, 20);
@@ -106,16 +105,16 @@ public class SnowballFightMessagingService {
     public void sendDeathTitle(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                                Player player) {
         context.getTitlesAPI().sendRaw(player,
-                moduleConfig.getStringFrom("language.yml", "titles.you_died.title"),
-                moduleConfig.getStringFrom("language.yml", "titles.you_died.subtitle"),
+                moduleConfig.getTranslation(player, "titles.you_died.title"),
+                moduleConfig.getTranslation(player, "titles.you_died.subtitle"),
                 0, 80, 20);
     }
 
     public void sendClassifiedTitle(GameContext<Player, Location, World, Material, ItemStack, Sound, Block, Entity> context,
                                     Player player) {
         context.getTitlesAPI().sendRaw(player,
-                moduleConfig.getStringFrom("language.yml", "titles.classified.title"),
-                moduleConfig.getStringFrom("language.yml", "titles.classified.subtitle"),
+                moduleConfig.getTranslation(player, "titles.classified.title"),
+                moduleConfig.getTranslation(player, "titles.classified.subtitle"),
                 0, 80, 20);
     }
 
@@ -138,7 +137,7 @@ public class SnowballFightMessagingService {
     }
 
     private String getRandomMessage(String path) {
-        List<String> messages = moduleConfig.getStringListFrom("language.yml", path);
+        List<String> messages = moduleConfig.getTranslationList(null, path);
         if (messages == null || messages.isEmpty()) {
             return null;
         }
@@ -146,4 +145,10 @@ public class SnowballFightMessagingService {
         int index = ThreadLocalRandom.current().nextInt(messages.size());
         return messages.get(index);
     }
+
+    private static String formatCountdownTime(int seconds) {
+        int safeSeconds = Math.max(0, seconds);
+        return String.format("%02d:%02d", safeSeconds / 60, safeSeconds % 60);
+    }
+
 }
