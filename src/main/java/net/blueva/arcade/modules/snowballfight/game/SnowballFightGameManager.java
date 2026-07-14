@@ -267,7 +267,7 @@ public class SnowballFightGameManager {
 
         String winMode = getWinMode(context);
         if ("most_kills".equals(winMode)) {
-            context.setPlayerSpectating(player, true);
+            player.setGameMode(GameMode.SPECTATOR);
             player.getInventory().clear();
             if (killedBySnowball) {
                 messagingService.sendDeathTitle(context, player);
