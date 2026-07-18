@@ -1,7 +1,7 @@
 # BlueArcade - Snowball Fight
 
 This resource is a **BlueArcade 3 module** and requires the core plugin to run.
-Get BlueArcade 3 here: https://store.blueva.net/resources/resource/1-blue-arcade/
+Get BlueArcade 3 here: https://blueva.net/store/blue-arcade
 
 ## Description
 Throw snowballs and outlast your opponents in a fast, frosty brawl.
